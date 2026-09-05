@@ -1,0 +1,30 @@
+# Render Blueprint -- deploys both halves of UpajMitra in one go.
+# Dashboard -> New -> Blueprint -> connect this repo -> Apply.
+#
+# IMPORTANT: after the backend finishes its first deploy, copy its real
+# https://...onrender.com URL and paste it into VITE_API_BASE_URL below
+# (include the trailing /api), then trigger a manual redeploy of the
+# frontend service -- Vite bakes env vars in at build time, so this can't
+# be picked up automatically. See DEPLOY.md for the full walkthrough.
+
+services:
+  - type: web
+    name: upajmitra-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    healthCheckPath: /api/health
+
+  - type: web
+    name: upajmitra-frontend
+    runtime: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://upajmitra-backend.onrender.com/api
