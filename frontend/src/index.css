@@ -1,0 +1,885 @@
+/* =========================================================
+   UPajMitra - Hackathon Ready UI
+   Theme: Dark Emerald Glassmorphism
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Dark Agri Theme Colors */
+  --bg-deep: #040d09;
+  --surface-dark: #0a1f15;
+  --surface-light: rgba(18, 43, 30, 0.7);
+  
+  --emerald: #16a36a;
+  --emerald-glow: rgba(22, 163, 106, 0.4);
+  --lime: #a8d83f;
+  --gold: #f4c542;
+  --orange: #f27a35;
+  --coral: #ef6258;
+  --cyan: #29b8c7;
+  
+  --text-main: #f0fdf4;
+  --text-muted: #94bba5;
+  
+  --font-head: "Plus Jakarta Sans", "Noto Sans Devanagari", sans-serif;
+  --font-body: "DM Sans", "Noto Sans Devanagari", sans-serif;
+
+  /* Legacy variable names still referenced inline by a few components --
+     aliased onto the dark theme palette so nothing falls back to
+     invalid/transparent colors. */
+  --green-mid: var(--emerald);
+  --orange-accent: var(--coral);
+  --border: rgba(255, 255, 255, 0.12);
+}
+
+/* =========================================================
+   RESET & BASE
+========================================================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-deep);
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(22, 163, 106, 0.15), transparent 30%),
+    radial-gradient(circle at 90% 80%, rgba(168, 216, 63, 0.1), transparent 30%);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+.app-shell {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 40px 0 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* =========================================================
+   HEADER (With Integrated Unsplash Photo)
+========================================================= */
+.app-header::after {
+  display: none;
+}
+
+.app-header {
+  position: relative;
+  overflow: hidden;
+  background: none;
+}
+
+.app-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-image: url('/corn-field.jpg.png');
+  background-size: cover;
+  background-position: center;
+
+  opacity: 0.35; /* 👈 decrease/increase this */
+  z-index: 0;
+}
+
+.app-header > * {
+  position: relative;
+  z-index: 1;
+}
+
+.header-content h1 {
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -1px;
+  background: linear-gradient(to right, #ffffff, var(--lime));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header-content p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* =========================================================
+   STEPPER
+========================================================= */
+.stepper {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  background: var(--surface-dark);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 20px;
+  flex-wrap: wrap;
+}
+
+.step-pill {
+  flex: 1;
+  text-align: center;
+  padding: 12px 20px;
+  background: rgba(255,255,255,0.03);
+  color: var(--text-muted);
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.step-pill:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.step-pill.active {
+  background: linear-gradient(135deg, var(--emerald), #20b978);
+  color: white;
+  box-shadow: 0 8px 20px var(--emerald-glow);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.step-pill.done {
+  background: rgba(22, 163, 106, 0.15);
+  color: var(--lime);
+  border-color: rgba(22, 163, 106, 0.3);
+}
+
+/* =========================================================
+   METRICS GRID
+========================================================= */
+.metric-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.metric-box {
+  padding: 24px;
+  background: var(--surface-light);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+
+.metric-box:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.metric-box:nth-child(1) { border-top: 4px solid var(--emerald); }
+.metric-box:nth-child(2) { border-top: 4px solid var(--gold); }
+.metric-box:nth-child(3) { border-top: 4px solid var(--cyan); }
+
+.metric-box .label {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.metric-box .value {
+  margin-top: 8px;
+  font-size: 1.8rem;
+  font-weight: 800;
+  font-family: var(--font-head);
+  color: white;
+}
+
+/* =========================================================
+   MAIN CARDS & FORMS
+========================================================= */
+.card {
+  background: var(--surface-dark);
+  padding: 32px;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.05);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.card h2 {
+  font-family: var(--font-head);
+  font-size: 1.6rem;
+  margin-bottom: 24px;
+  color: white;
+}
+
+.form-section {
+  background: rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.form-section[open] {
+  background: rgba(255,255,255,0.02);
+  border-color: rgba(255,255,255,0.1);
+}
+
+/* Green styling for Farm Profile section */
+.form-section-location {
+  background: var(--surface-dark);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.form-section-location[open] {
+  background: var(--surface-dark);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.form-section-location {
+  border-left: 4px solid var(--emerald);
+  border-radius: 16px;
+}
+
+.form-section-location {
+  background: rgba(0, 0, 0, 0.2);
+  border-left: 4px solid var(--emerald);
+}
+
+.form-section-location[open] {
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 4px solid var(--emerald);
+}
+.form-section summary {
+  padding: 20px 24px;
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  list-style: none;
+  color: white;
+}
+
+.form-section summary::-webkit-details-marker { display: none; }
+
+/* Themed Section Icons */
+.form-section summary::before {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-right: 16px;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 0 24px 24px;
+}
+
+/* =========================================================
+   INPUTS
+========================================================= */
+.field label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.field input, 
+.field select {
+  width: 100%;
+  padding: 14px 16px;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  color: white;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.field input:focus, 
+.field select:focus {
+  border-color: var(--emerald);
+  background: rgba(22, 163, 106, 0.05);
+  box-shadow: 0 0 0 4px var(--emerald-glow);
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, var(--emerald), #20b978);
+  color: white;
+  box-shadow: 0 8px 20px var(--emerald-glow);
+}
+
+.btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(22, 163, 106, 0.5);
+  filter: brightness(1.1);
+}
+
+.btn.secondary {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.btn.secondary:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.btn.auto-fill {
+  background: rgba(41, 184, 199, 0.15);
+  color: var(--cyan);
+  border: 1px solid rgba(41, 184, 199, 0.3);
+  width: 100%;
+}
+
+.btn.auto-fill:hover {
+  background: rgba(41, 184, 199, 0.25);
+  box-shadow: 0 8px 20px rgba(41, 184, 199, 0.2);
+}
+
+/* =========================================================
+   AI RECOMMENDATION BANNER
+========================================================= */
+.hero-recommendation {
+  position: relative;
+  padding: 32px;
+  background: linear-gradient(135deg, rgba(244, 197, 66, 0.1) 0%, rgba(22, 163, 106, 0.2) 100%);
+  border: 1px solid var(--emerald);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.hero-recommendation::before {
+  content: "✨ AI STRATEGY";
+  display: inline-block;
+  background: var(--gold);
+  color: #000;
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+
+.hero-recommendation h3 {
+  font-family: var(--font-head);
+  font-size: 1.8rem;
+  color: white;
+  margin-bottom: 12px;
+}
+
+.hero-recommendation p {
+  color: rgba(255,255,255,0.9);
+  font-size: 1.1rem;
+  max-width: 800px;
+  line-height: 1.6;
+}
+
+/* Add a floating crop element inside the AI banner */
+.hero-recommendation::after {
+  content: "";
+  position: absolute;
+  right: -20px;
+  bottom: -20px;
+  width: 250px;
+  height: 250px;
+  background: url('https://images.unsplash.com/photo-1592982537447-6f296d99a2c1?q=80&w=1000&auto=format&fit=crop') center/cover;
+  border-radius: 50%;
+  opacity: 0.4;
+  mask-image: radial-gradient(black 40%, transparent 70%);
+  -webkit-mask-image: radial-gradient(black 40%, transparent 70%);
+  pointer-events: none;
+}
+
+/* =========================================================
+   RESPONSIVE DESIGN
+========================================================= */
+@media (max-width: 768px) {
+  .app-shell {
+    width: 100%;
+    padding: 20px 16px;
+  }
+  
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px;
+  }
+  
+  .app-header h1 {
+    font-size: 2rem;
+  }
+  
+  .metric-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   UI RESTORE — KEEP THE ORIGINAL COMPACT UPajMitra DESIGN
+   ========================================================= */
+
+/* Main page width */
+.app-shell {
+  width: min(1000px, calc(100vw - 32px));
+  max-width: 1000px;
+  margin: 24px auto;
+  padding: 0;
+}
+
+/* Header */
+.app-header {
+  min-height: 140px;
+  padding: 24px 34px;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-header .header-content {
+  position: relative;
+  z-index: 2;
+}
+
+.app-header h1 {
+  font-size: 2.8rem;
+  line-height: 1.1;
+  margin: 0 0 8px;
+}
+
+.app-header p {
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.app-header .btn {
+  position: relative;
+  z-index: 3;
+}
+
+/* Header decorative image/logo must NOT block clicks */
+.app-header::after {
+  pointer-events: none;
+}
+
+/* Language button */
+.app-header > .btn {
+  position: absolute;
+  right: 34px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Stepper */
+.stepper {
+  width: 100%;
+  margin: 20px 0;
+  padding: 10px;
+  gap: 10px;
+}
+
+.step-pill {
+  min-height: 42px;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+}
+
+/* Main form card */
+.form-card {
+  width: 100%;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+/* Farm Profile heading */
+.form-card > h2 {
+  font-size: 2rem;
+  margin-bottom: 26px;
+}
+
+/* Sections */
+.form-section {
+  width: 100%;
+  margin-bottom: 20px;
+  border-radius: 18px;
+  padding: 22px;
+}
+
+/* Keep location section same green outline as Soil & Nutrients */
+.form-section-location {
+  border-left: 3px solid var(--emerald) !important;
+}
+
+/* Section headings */
+.form-section summary {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 22px;
+}
+
+/* Form grid */
+.form-grid {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+/* Inputs */
+.field input,
+.field select {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 16px;
+  font-size: 1rem;
+}
+
+/* Auto fill button */
+.form-section-location .btn {
+  min-height: 52px;
+  width: 100%;
+}
+
+/* Prevent button from becoming weirdly huge */
+.btn {
+  white-space: normal;
+}
+
+/* Primary predict button */
+.form-card > div:last-child .btn {
+  min-height: 52px;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .app-shell {
+    width: calc(100vw - 32px);
+  }
+
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .app-header h1 {
+    font-size: 2.3rem;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .app-shell {
+    width: calc(100vw - 20px);
+    margin: 10px auto;
+  }
+
+  .app-header {
+    padding: 22px;
+    min-height: 150px;
+  }
+
+  .app-header h1 {
+    font-size: 2rem;
+  }
+
+  .app-header > .btn {
+    position: static;
+    transform: none;
+    margin-top: 15px;
+  }
+
+  .stepper {
+    flex-direction: column;
+  }
+
+  .step-pill {
+    width: 100%;
+  }
+
+  .form-card {
+    padding: 20px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* =========================================================
+   FARMER-FRIENDLY ADDITIONS
+   (GPS/district location picker, plain-language reason cards,
+   delta pills, error/summary banners, saved-farms list, pareto
+   table — restyled to match the dark emerald glassmorphism
+   theme above)
+========================================================= */
+
+/* Generic status banners */
+.error-banner {
+  background: rgba(239, 98, 88, 0.1);
+  color: var(--coral);
+  border: 1px solid var(--coral);
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  margin: 12px 0;
+}
+
+/* Profit metric boxes get a gold accent to match the rest of the theme */
+.metric-box.profit {
+  border-top: 4px solid var(--gold);
+}
+
+.metric-box.profit .value {
+  color: var(--gold);
+}
+
+/* Plain-language "why this prediction" cards */
+.farmer-headline {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  background: rgba(22, 163, 106, 0.12);
+  border: 1px solid rgba(22, 163, 106, 0.3);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin: 12px 0 16px;
+}
+
+.reason-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.reason-card {
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(0,0,0,0.2);
+  color: var(--text-main);
+}
+
+.reason-card.positive {
+  border-left: 4px solid var(--emerald);
+  background: rgba(22, 163, 106, 0.08);
+}
+
+.reason-card.negative {
+  border-left: 4px solid var(--coral);
+  background: rgba(239, 98, 88, 0.08);
+}
+
+.farmer-advice h3 {
+  font-family: var(--font-head);
+  color: white;
+}
+
+/* Delta labels (What-If simulator) */
+.delta {
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.delta.positive {
+  color: var(--emerald);
+  background: rgba(22, 163, 106, 0.15);
+}
+
+.delta.negative {
+  color: var(--coral);
+  background: rgba(239, 98, 88, 0.15);
+}
+
+/* Sliders (What-If simulator levers) */
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(0,0,0,0.3);
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.slider-row label {
+  flex: 1;
+  min-width: 160px;
+  color: var(--text-main);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.slider-row input[type='range'] {
+  flex: 2;
+  accent-color: var(--cyan);
+  cursor: pointer;
+}
+
+.slider-row .slider-value {
+  width: 60px;
+  text-align: right;
+  color: var(--cyan);
+  font-weight: 700;
+  font-family: monospace;
+  font-size: 1.05rem;
+}
+
+/* Recommended plan hero (Optimize panel) */
+.hero-recommendation {
+  position: relative;
+  padding: 32px;
+  background: linear-gradient(135deg, rgba(244, 197, 66, 0.1) 0%, rgba(22, 163, 106, 0.2) 100%);
+  border: 1px solid var(--emerald);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  margin-top: 20px;
+}
+
+.hero-recommendation-label {
+  display: inline-block;
+  background: var(--gold);
+  color: #000;
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+
+.hero-recommendation-metrics {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin: 4px 0 16px;
+}
+
+.hero-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  font-family: var(--font-head);
+  color: white;
+  display: block;
+}
+
+.hero-unit {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.hero-recommendation-detail {
+  background: rgba(255,255,255,0.08);
+  padding: 14px 16px;
+  border-radius: 12px;
+  color: white;
+  font-family: monospace;
+  font-size: 1rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  margin-top: 12px;
+}
+
+.summary-banner {
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.9);
+  padding: 16px 20px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-style: italic;
+  margin-top: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Pareto frontier table (Optimize panel) */
+table.pareto-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  color: white;
+  font-size: 0.9rem;
+  margin-top: 12px;
+}
+
+table.pareto-table th,
+table.pareto-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+table.pareto-table thead {
+  background: rgba(22, 163, 106, 0.15);
+}
+
+table.pareto-table th {
+  color: var(--lime);
+}
+
+table.pareto-table tr.recommended {
+  background: rgba(244, 197, 66, 0.1);
+  font-weight: 700;
+  color: var(--gold);
+}
+
+/* Saved-farms list (Profile manager) */
+.card ul li:hover {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.2) !important;
+}
+
+.card input[type='text'] {
+  background: rgba(0,0,0,0.3);
+  color: white;
+  font-family: var(--font-body);
+}
+
+.card input[type='text']::placeholder {
+  color: var(--text-muted);
+}

@@ -1,0 +1,59 @@
+{
+  "feature_order": [
+    "crop_type",
+    "soil_type",
+    "region",
+    "nitrogen_kg_per_acre",
+    "phosphorus_kg_per_acre",
+    "potassium_kg_per_acre",
+    "irrigation_mm_per_week",
+    "soil_ph",
+    "organic_carbon_pct",
+    "avg_temp_c",
+    "rainfall_mm_season",
+    "sowing_density_kg_per_acre",
+    "pesticide_applications",
+    "canopy_health_index"
+  ],
+  "categorical_features": [
+    "crop_type",
+    "soil_type",
+    "region"
+  ],
+  "numeric_features": [
+    "nitrogen_kg_per_acre",
+    "phosphorus_kg_per_acre",
+    "potassium_kg_per_acre",
+    "irrigation_mm_per_week",
+    "soil_ph",
+    "organic_carbon_pct",
+    "avg_temp_c",
+    "rainfall_mm_season",
+    "sowing_density_kg_per_acre",
+    "pesticide_applications",
+    "canopy_health_index"
+  ],
+  "crops": [
+    "Wheat",
+    "Rice",
+    "Maize",
+    "Cotton",
+    "Sugarcane"
+  ],
+  "soil_types": [
+    "Alluvial",
+    "Black",
+    "Red",
+    "Laterite",
+    "Sandy"
+  ],
+  "regions": [
+    "North",
+    "South",
+    "East",
+    "West",
+    "Central"
+  ],
+  "val_rmse": 23.03496951932818,
+  "val_mape_pct": 6.60274049531578
+}
